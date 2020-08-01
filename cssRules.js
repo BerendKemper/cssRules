@@ -2,11 +2,9 @@ const cssRules = function loadCssRules() {
   const style = document.createElement("style");
   document.head.appendChild(style);
   const sheet = style.sheet;
-  const _sheet = new WeakMap();
-  const _index = new WeakMap();
+
   const cssRulesProto = Object.create(null);
   const cssRules = Object.setPrototypeOf({}, cssRulesProto);
-  const selectorProto = {};
 
   const cssStylesDeclarations = function loadCSSStyleDeclarations() {
     sheet.insertRule("null {}");
@@ -41,7 +39,10 @@ const cssRules = function loadCssRules() {
     });
   };
 
-  Object.defineProperties(selectorProto, {
+  const _sheet = new WeakMap();
+  const _index = new WeakMap();
+  
+  const selectorProto = Object.defineProperties({}, {
     'removeProperty': {
       value(property) {
         if (cssStylesDeclarations[property]) {
@@ -106,5 +107,6 @@ const cssRules = function loadCssRules() {
       insertRule(cssRule, index, styleSheet);
     }
   }
+
   return cssRules;
 }();
