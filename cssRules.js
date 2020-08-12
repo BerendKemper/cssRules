@@ -101,10 +101,12 @@ const cssRules = function loadCssRules() {
   });
 
   for (const styleSheet of document.styleSheets) {
-    const cssRulesList = styleSheet.cssRules;
-    for (let index = 0; index < cssRulesList.length; index++) {
-      const cssRule = cssRulesList[index];
-      insertRule(cssRule, index, styleSheet);
+    if (styleSheet.href !== null && !styleSheet.href.includes("bootstrap")) {
+      const cssRulesList = styleSheet.cssRules;
+      for (let index = 0; index < cssRulesList.length; index++) {
+        const cssRule = cssRulesList[index];
+        insertRule(cssRule, index, styleSheet);
+      }
     }
   }
 
